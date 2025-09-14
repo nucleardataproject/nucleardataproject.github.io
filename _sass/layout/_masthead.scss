@@ -2,18 +2,25 @@
    MASTHEAD
    ========================================================================== */
 
+/* REMOVE the body padding - we don't need it for absolute positioning */
+/* body {
+  padding-top: 80px !important;
+} */
+
 .masthead {
-  position: fixed;
+  position: absolute; /* Changed back to absolute */
   background: var(--global-bg-color);
   height: fit-content;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
+  z-index: 20; /* You can revert to original z-index */
 
   -webkit-animation: intro 0.3s both;
           animation: intro 0.3s both;
   -webkit-animation-delay: 0.15s;
           animation-delay: 0.15s;
-  z-index: 20;
 
   &::after {
     content: "";
@@ -44,8 +51,12 @@
   }
 }
 
-.masthead__menu {
+/* Add margin to the content that follows the masthead */
+.main-content {
+  margin-top: 80px; /* This creates space for the absolute-positioned masthead */
+}
 
+.masthead__menu {
   ul {
     margin: 0;
     padding: 0;
