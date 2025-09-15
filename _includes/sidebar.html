@@ -1,24 +1,17 @@
 {% include base_path %}
 
-{% comment %}
- Only show sidebar on the main page (homepage)
- Adjust the condition based on your site's URL structure
-{% endcomment %}
-
 {% if page.url == '/' or page.url == '/index.html' or page.url == '' %}
   <div class="sidebar sticky">
     <!-- Search Bar -->
     <div class="sidebar-search">
-      <!--  <h3>Search</h3> -->
       <form id="search-form">
-        <input type="text" id="search-input" placeholder="Search archives..." aria-label="Search">
-        <button type="submit">Search</button>
+        <input type="text" id="search-input" placeholder="Search site..." aria-label="Search">
+        <button type="submit">🔍 Search</button>
       </form>
     </div>
 
     <!-- Links Section -->
     <div class="sidebar-links">
-      <!-- <h3>Resources</h3> -->
       <ul>
         <li><a href="{{ '/about/' | prepend: base_path }}">About</a></li>
         <li><a href="{{ '/contributors/' | prepend: base_path }}">Contributors</a></li>
@@ -29,27 +22,6 @@
     </div>
   </div>
 
-  <script>
-  document.getElementById('search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const query = document.getElementById('search-input').value.toLowerCase();
-    
-    // Simple search implementation
-    const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, article');
-    let found = false;
-    
-    elements.forEach(element => {
-      if (element.textContent.toLowerCase().includes(query)) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        element.style.backgroundColor = '#ffffcc';
-        setTimeout(() => element.style.backgroundColor = '', 2000);
-        found = true;
-      }
-    });
-    
-    if (!found) {
-      alert('No results found for: ' + query);
-    }
-  });
-  </script>
+  <!-- Load the simple search script -->
+  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 {% endif %}

@@ -4,6 +4,7 @@ layout: compress
 
 {% include base_path %}
 
+
 <!doctype html>
 <html lang="{{ site.locale | slice: 0,2 }}" class="no-js" data-theme="light">
   <head>
@@ -26,6 +27,39 @@ layout: compress
     </div>
 
     {% include scripts.html %}
+
+    <!-- SEARCH DATA - RIGHT BEFORE CLOSING BODY TAG -->
+    {% if page.url == '/' or page.url == '/index.html' or page.url == '' %}
+    <script>
+    window.simpleSearchData = [
+      {
+        url: "{{ '/about/' | absolute_url }}",
+        title: "About",
+        content: "Learn about our website and mission"
+      },
+      {
+        url: "{{ '/contributors/' | absolute_url }}", 
+        title: "Contributors",
+        content: "List of people who contributed to this project"
+      },
+      {
+        url: "{{ '/help/' | absolute_url }}",
+        title: "Help",
+        content: "Get help and support for using this website"
+      },
+      {
+        url: "{{ '/opensource/' | absolute_url }}",
+        title: "Open Source", 
+        content: "Information about our open source projects"
+      },
+      {
+        url: "{{ '/license/' | absolute_url }}",
+        title: "License",
+        content: "License information and terms of use"
+      }
+    ];
+    </script>
+    {% endif %}
 
   </body>
 </html>
