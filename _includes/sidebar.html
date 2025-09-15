@@ -1,24 +1,55 @@
 {% include base_path %}
 
-{% if page.sidebar %}  <!-- Only keep this condition -->
+{% comment %}
+ Only show sidebar on the main page (homepage)
+ Adjust the condition based on your site's URL structure
+{% endcomment %}
+
+{% if page.url == '/' or page.url == '/index.html' or page.url == '' %}
   <div class="sidebar sticky">
-  {% if page.sidebar %}
-    {% for s in page.sidebar %}
-      {% if s.image %}
-        <img src=
-        {% if s.image contains "://" %}
-          "{{ s.image }}"
-        {% else %}
-          "{{ s.image | prepend: "/images/" | prepend: base_path }}"
-        {% endif %}
-        alt="{% if s.image_alt %}{{ s.image_alt }}{% endif %}">
-      {% endif %}
-      {% if s.title %}<h3>{{ s.title }}</h3>{% endif %}
-      {% if s.text %}{{ s.text | markdownify }}{% endif %}
-    {% endfor %}
-    {% if page.sidebar.nav %}
-      {% include nav_list nav=page.sidebar.nav %}
-    {% endif %}
-  {% endif %}
+    <!-- Search Bar -->
+    <div class="sidebar-search">
+      <!--  <h3>Search</h3> -->
+      <form id="search-form">
+        <input type="text" id="search-input" placeholder="Search archives..." aria-label="Search">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <!-- Links Section -->
+    <div class="sidebar-links">
+      <!-- <h3>Resources</h3> -->
+      <ul>
+        <li><a href="{{ '/about/' | prepend: base_path }}">About</a></li>
+        <li><a href="{{ '/contributors/' | prepend: base_path }}">Contributors</a></li>
+        <li><a href="{{ '/help/' | prepend: base_path }}">Help</a></li>
+        <li><a href="{{ '/opensource/' | prepend: base_path }}">Open source</a></li>
+        <li><a href="{{ '/license/' | prepend: base_path }}">License</a></li>
+      </ul>
+    </div>
   </div>
+
+  <script>
+  document.getElementById('search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = document.getElementById('search-input').value.toLowerCase();
+    
+    // Simple search implementation
+    const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, article');
+    let found = false;
+    
+    elements.forEach(element => {
+      if (element.textContent.toLowerCase().includes(query)) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.style.backgroundColor = '#ffffcc';
+        setTimeout(() => element.style.backgroundColor = '', 2000);
+        found = true;
+      }
+    });
+    
+    if (!found) {
+      alert('No results found for: ' + query);
+    }
+  });
+  </script>
 {% endif %}
