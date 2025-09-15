@@ -1,21 +1,45 @@
-// Simple search functionality
-class SimpleSearch {
+class EfficientSearch {
     constructor() {
         this.pages = window.simpleSearchData || [];
+        this.searchIndex = this.buildSearchIndex();
         this.init();
+    }
+
+    buildSearchIndex() {
+        // Pre-process pages for faster searching
+        return this.pages.map(page => ({
+            url: page.url.toLowerCase(),
+            title: page.title.toLowerCase(),
+            content: page.content.toLowerCase(),
+            keywords: page.keywords ? page.keywords.toLowerCase().split(',') : [],
+            original: page
+        }));
     }
 
     init() {
         this.setupSearchForm();
-        console.log('Simple search ready with', this.pages.length, 'pages');
+        console.log('Search ready with', this.pages.length, 'pages');
     }
 
     setupSearchForm() {
         const form = document.getElementById('search-form');
+        const input = document.getElementById('search-input');
+        
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 this.performSearch();
+            });
+        }
+
+        // Real-time search as you type (optional)
+        if (input) {
+            let timeout;
+            input.addEventListener('input', (e) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    this.performSearch();
+                }, 300); // Search after 300ms of typing stopped
             });
         }
     }
@@ -24,7 +48,7 @@ class SimpleSearch {
         const query = document.getElementById('search-input').value.toLowerCase().trim();
         
         if (!query) {
-            alert('Please enter something to search');
+            this.clearResults();
             return;
         }
 
@@ -33,21 +57,18 @@ class SimpleSearch {
     }
 
     searchPages(query) {
-        return this.pages.filter(page => {
-            return page.title.toLowerCase().includes(query) || 
-                   page.content.toLowerCase().includes(query) ||
-                   page.url.toLowerCase().includes(query);
-        });
+        return this.searchIndex.filter(page => {
+            // Check title, content, URL, and keywords
+            return page.title.includes(query) ||
+                   page.content.includes(query) ||
+                   page.url.includes(query) ||
+                   page.keywords.some(keyword => keyword.includes(query));
+        }).map(page => page.original);
     }
 
     showResults(results, query) {
-        // Remove any existing results
-        const oldResults = document.getElementById('search-results');
-        if (oldResults) {
-            oldResults.remove();
-        }
+        this.clearResults();
 
-        // Create results container
         const resultsDiv = document.createElement('div');
         resultsDiv.id = 'search-results';
         resultsDiv.className = 'search-results';
@@ -55,13 +76,18 @@ class SimpleSearch {
         if (results.length === 0) {
             resultsDiv.innerHTML = `<p>No results found for "<strong>${this.escapeHtml(query)}</strong>"</p>`;
         } else {
-            let html = `<p>Found ${results.length} results:</p>`;
+            let html = `<div class="results-header">
+                <h3>${results.length} results found</h3>
+                <small>Searching ${this.pages.length} total pages</small>
+            </div>`;
             
             results.forEach(page => {
+                const snippet = this.getBestSnippet(page.content, query);
                 html += `
                     <div class="search-result">
                         <h4><a href="${page.url}">${this.highlight(page.title, query)}</a></h4>
-                        <p>${this.highlight(page.content, query)}</p>
+                        <p>${this.highlight(snippet, query)}</p>
+                        ${page.keywords ? `<div class="keywords">Keywords: ${this.highlight(page.keywords, query)}</div>` : ''}
                     </div>
                 `;
             });
@@ -69,31 +95,34 @@ class SimpleSearch {
             resultsDiv.innerHTML = html;
         }
 
-        // Add results below search form
-        const searchForm = document.getElementById('search-form');
-        if (searchForm) {
-            searchForm.parentNode.insertBefore(resultsDiv, searchForm.nextSibling);
-        }
+        document.getElementById('search-form').after(resultsDiv);
+    }
+
+    getBestSnippet(content, query) {
+        const position = content.toLowerCase().indexOf(query.toLowerCase());
+        if (position === -1) return content.substring(0, 150) + '...';
+        
+        const start = Math.max(0, position - 50);
+        const end = Math.min(content.length, position + 100);
+        return (start > 0 ? '...' : '') + content.substring(start, end) + (end < content.length ? '...' : '');
+    }
+
+    clearResults() {
+        const oldResults = document.getElementById('search-results');
+        if (oldResults) oldResults.remove();
     }
 
     highlight(text, query) {
         if (!text || !query) return this.escapeHtml(text);
-        
-        const regex = new RegExp(`(${query})`, 'gi');
+        const regex = new RegExp(`(${this.escapeRegex(query)})`, 'gi');
         return this.escapeHtml(text).replace(regex, '<mark>$1</mark>');
     }
 
-    escapeHtml(text) {
-        return text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    }
+    escapeHtml(text) { return text.toString().replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[m]); }
+    escapeRegex(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 }
 
-// Start the search when page loads
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    new SimpleSearch();
+    new EfficientSearch();
 });

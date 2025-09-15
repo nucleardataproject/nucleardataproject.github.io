@@ -41,13 +41,6 @@
     "vendor/font-awesome/brands"
 ;
 /* Search results styling */
-.search-results {
-    margin: 20px 0;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
-}
 
 .search-result {
     margin: 15px 0;
@@ -115,4 +108,35 @@ mark {
 
 #search-form button:hover {
     background: #005a9e;
+}
+
+.search-results {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.results-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007acc;
+}
+
+.results-header h3 {
+    margin: 0 0 5px 0;
+    color: #007acc;
+}
+
+.keywords {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 8px;
+    padding: 4px 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    display: inline-block;
 }
