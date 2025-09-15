@@ -40,43 +40,6 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
-/* Search results styling */
-
-.search-result {
-    margin: 15px 0;
-    padding: 12px;
-    background: white;
-    border-radius: 6px;
-    border-left: 4px solid #007acc;
-}
-
-.search-result h4 {
-    margin: 0 0 8px 0;
-    font-size: 1.1em;
-}
-
-.search-result h4 a {
-    color: #007acc;
-    text-decoration: none;
-}
-
-.search-result h4 a:hover {
-    text-decoration: underline;
-}
-
-.search-result p {
-    margin: 0;
-    color: #666;
-    font-size: 0.9em;
-    line-height: 1.4;
-}
-
-mark {
-    background-color: #ffeb3b;
-    padding: 0.1em 0.3em;
-    border-radius: 3px;
-    font-weight: bold;
-}
 
 /* Search form styling */
 .sidebar-search {
@@ -98,8 +61,8 @@ mark {
 
 #search-form button {
     padding: 8px 16px;
-    background: #007acc;
-    color: white;
+    background: #646464;
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -107,36 +70,108 @@ mark {
 }
 
 #search-form button:hover {
-    background: #005a9e;
+    background: #000000;
 }
+
+/* Search results styling */
+
 
 .search-results {
     max-height: 60vh;
     overflow-y: auto;
     margin: 20px 0;
-    padding: 15px;
+    padding: 20px;
     background: #f8f9fa;
     border-radius: 8px;
-    border: 1px solid #e9ecef;
+    border: 1px solid #ececec;
 }
 
 .results-header {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #007acc;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #555;
 }
 
 .results-header h3 {
-    margin: 0 0 5px 0;
-    color: #007acc;
+    margin: 0 0 8px 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.keyword-pill {
+    background: #5FED83;
+    color: rgb(0, 0, 0);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.search-result {
+    margin: 20px 0;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #555;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+} 
+
+.search-result h4 {
+    margin: 0 0 12px 0;
+    font-size: 1.2em;
+}
+
+.search-result h4 a {
+    color: #555;
+    text-decoration: none;
+}
+
+.search-result h4 a:hover {
+    text-decoration: underline;
+}
+
+.search-result p {
+    margin: 0 0 12px 0;
+    color: #555;
+    line-height: 1.5;
 }
 
 .keywords {
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: #666;
+    margin: 10px 0;
+    padding: 8px 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    border-left: 3px solid #777777;
+}
+
+.match-info {
+    font-size: 0.8em;
+    color: #888;
     margin-top: 8px;
-    padding: 4px 8px;
-    background: #e9ecef;
-    border-radius: 4px;
-    display: inline-block;
+    padding-top: 8px;
+    border-top: 1px dashed #ddd;
+}
+
+.no-results {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.search-tip {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 10px;
+}
+
+mark {
+    background-color: #5FED83;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-weight: bold;
 }
