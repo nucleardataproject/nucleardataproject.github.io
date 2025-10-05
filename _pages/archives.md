@@ -1,7 +1,7 @@
 ---
 layout: single
-title: "Submit Data"
-permalink: /submit/
+title: "Data Archives"
+permalink: /archives/
 ---
 
 This page is currently under development.

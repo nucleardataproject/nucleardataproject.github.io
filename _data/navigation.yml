@@ -10,12 +10,12 @@
 main:
   - title: "Data archives"
     url: /archives/
-
   - title: "Educational resources"
-    url: /educational/    
-
+    url: /educational/
   - title: "Submit data"
-    url: /submit/    
+    url: /submit/
+  - title: "Contributors"  
+    url: /contributors/   
     
   # - title: "Portfolio"
   #   url: /portfolio/
@@ -31,3 +31,7 @@ main:
     
   # - title: "Guide"
   #   url: /markdown/
+  
+  # ... (ваши существующие ссылки) ...
+  - title: "Visualization Demo"
+    url: /visualization/

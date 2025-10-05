@@ -43,3 +43,13 @@ The scientific community is invited to contribute datasets to enhance the breadt
 ## Contact
 
 For inquiries regarding collaboration, data submission, or help, please contact  at `alexey.nisimov@gmail.com`. Please note that the website in its current form is still under development.
+---
+
+## Project Team
+
+This project is developed and maintained by a collaborative team of researchers.
+
+*   **Alexey Anisimov** - Project Lead, Scientific Developer
+*   **Georgij Boldyrev** - Lead Web Developer, Data Visualization
+
+[Learn more about our team](/contributors/)

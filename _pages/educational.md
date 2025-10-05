@@ -1,8 +1,7 @@
 ---
-layout: archive
-title: "Educational resourses"
+layout: single
+title: "Educational Resources"
 permalink: /educational/
-author_profile: true
 ---
 
 This page is currently under development.
